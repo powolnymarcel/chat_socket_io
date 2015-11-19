@@ -1,11 +1,16 @@
 {
   "name": "chat_socket_io",
   "version": "1.0.0",
+  "scripts": {
+	"start": "node ./bin/www"
+  },
   "description": "",
   "dependencies": {
     "bower": "^1.6.5",
     "express": "*",
-    "jade": "*",
+	"jade": "*",
+	"open": "*",
+	"nodemon": "*",
     "socket.io": "*"
   },
   "author": "poma",

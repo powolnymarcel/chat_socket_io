@@ -46,6 +46,7 @@ body {
 }
 .people-list img {
   float: left;
+	width: 30%;
 }
 .people-list .about {
   float: left;
@@ -204,4 +205,23 @@ body {
   content: " ";
   clear: both;
   height: 0;
+}
+.chat{
+	display: none;
+}
+.choixImgPerso{
+	width: 3% !important;
+}
+.beteclasse {
+	width: auto !important;
+	float: left;
+	margin-bottom: 40px;
+	margin-right: 25px;
+	margin-top: 25px;
+}
+#formAjoutUtilisateur img {
+	width: 30%;
+}
+.chat-header.clearfix > img {
+	width: 12%;
 }
