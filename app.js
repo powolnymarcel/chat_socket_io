@@ -19,6 +19,11 @@ application.use(express.static(path.join(__dirname, 'public')));
 io.sockets.on('connection',function(socket){
 	socket.on('definir utilisateur', function(data,callback){
 		if(utilisateurs.indexOf(data) != -1){
+
+			// . utilisateur ??????
+
+
+
 			callback(false)
 		}else{
 			callback(true);
