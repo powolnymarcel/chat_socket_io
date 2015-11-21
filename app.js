@@ -18,7 +18,7 @@ application.use(express.static(path.join(__dirname, 'public')));
 //Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
 io.sockets.on('connection',function(socket){
 	socket.on('definir utilisateur', function(data,callback){
-		if(utilisateurs.indexOf(data) != -1){
+		if(utilisateurs.indexOf('marta') != -1){
 
 			// . utilisateur ??????
 

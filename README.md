@@ -41,6 +41,74 @@ La variable "server" sera le serveur, on y attache le module "http" et on appell
 La variable "io" instancie socket.io, "io" écoute tout se qui se passe sur le serveur avec .listen(server)
 La variable "utilisateurs" gèrera tous les utilisateurs qui seront sur le site, un stockage dans un array....
 
+
+
+Modifier + main.js :
+
+// Definition du moteur de vue
+
+application.set('views', __dirname + '/vues');
+application.set('view engine','jade');
+application.engine('jade', require('jade').__express);
+
+// Definition un chemin statique
+application.use(express.static(path.join(__dirname, 'public')));
+
+//Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
+io.sockets.on('connection',function(socket){
+	socket.on('definir utilisateur', function(data,callback){
+		if(utilisateurs.indexOf('marta') != -1){
+
+			// . utilisateur ??????
+
+
+
+			callback(false)
+		}else{
+			callback(true);
+			socket.utilisateur = data.utilisateur;
+			socket.urlAvatar = data.urlAvatar;
+			utilisateurs.push({
+				utilisateur: data.utilisateur,
+				urlAvatar : data.urlAvatar
+			});
+			mettreAjourUtilisateurs();
+		}
+	});
+
+	function mettreAjourUtilisateurs(){
+		io.sockets.emit('utilisateurs',utilisateurs);
+		console.log(utilisateurs);
+		console.log('*************');
+	}
+});
+
+
+//On défini les routes
+application.get('/', function(req,res){
+	res.render('index');
+});
+
+// Demarrage du serveur
+var port = process.env.PORT || 3000;
+serveur.listen(port);
+console.log('************************************************************');
+console.log('Le serveur est execute, rendez-vous sur : localhost:' + port);
+console.log('************************************************************');
+//open('http://localhost:' + port);
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Infos ##
 *Utilisation de MarkdownPad 2 pour creer des "*.md"
 
