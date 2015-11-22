@@ -22,7 +22,7 @@ io.sockets.on('connection',function(socket){
 		var dejaEnligne = false;
 		for(var i = 0; i < utilisateurs.length; i++) {
 			if (utilisateurs[i].utilisateur == data.utilisateur) {
-				found = true;
+				dejaEnligne = true;
 				break;
 			}
 		}
