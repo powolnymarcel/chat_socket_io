@@ -18,9 +18,17 @@ application.use(express.static(path.join(__dirname, 'public')));
 //Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
 io.sockets.on('connection',function(socket){
 	socket.on('definir utilisateur', function(data,callback){
-		if(utilisateurs.indexOf(data) != -1){
 
-			/// TRAITER LE IF !!!!!!!!!!
+		var dejaEnligne = false;
+		for(var i = 0; i < utilisateurs.length; i++) {
+			if (utilisateurs[i].utilisateur == data.utilisateur) {
+				found = true;
+				break;
+			}
+		}
+
+		if(dejaEnligne){
+			console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeee');
 
 			callback(false)
 		}else{
@@ -40,6 +48,15 @@ io.sockets.on('connection',function(socket){
 		console.log(utilisateurs);
 		console.log('*************');
 	}
+
+	socket.on('disconnect',function(data){
+		if(!socket.utilisateur)return;
+		//splice pour remover une valeur ou un index, hors d'un array
+		utilisateurs.splice(utilisateurs.indexOf(socket.utilisateur),1);
+		mettreAjourUtilisateurs();
+
+
+	})
 });
 
 
