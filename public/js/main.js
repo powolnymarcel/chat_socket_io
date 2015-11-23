@@ -1,13 +1,26 @@
 $(document).ready(function(){
+	//On aura quelques variables:
+	// Un tableau vide pour les messages
 	var messages = [];
+	// On a besoin du socket
 	var socket = io.connect('http://localhost:3000');
-	var texteDuChat= $('#texteDuChat');
-	var formulaireDeChat= $('#formulaireDeChat');
-	var fenetreDeChat= $('#fenetreDeChat');
-	var formAjoutUtilisateur= $('#formAjoutUtilisateur');
-	var pseudo= $('#pseudo');
-	var urlAvatarTag= $('#urlAvatar');
-	var utilisateurs = $('#utilisateurs');
+
+	//On récupère les données du form pour tchatter
+		// Le textarea du  tchat
+		var texteDuChat= $('#texteDuChat');
+		//Le form du tchat
+		var formulaireDeChat= $('#formulaireDeChat');
+		//La zone de tchat
+		var fenetreDeChat= $('#fenetreDeChat');
+	//On récupère les données du form pour l'ajout utilisateur
+		//Le form d'ajout utilisateur
+		var formAjoutUtilisateur= $('#formAjoutUtilisateur');
+		// le input pour le nom d'utilisateur
+		var pseudo= $('#pseudo');
+		// le input pour l'avatar
+		var urlAvatarTag= $('#urlAvatar');
+		//La liste d'utilisateurs
+		var utilisateurs = $('#utilisateurs');
 	var erreurs = $('erreurs');
 
 	$('input[name="choixImgPerso"]').on('click', function() {

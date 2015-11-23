@@ -93,44 +93,50 @@ Voir index.jade pour le front
 
 app.js:
 
-Connexion au socket:
+Voir les commentaires inline:
 
-    // Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
+    //Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
     io.sockets.on('connection',function(socket){
-		// Quand on enverra le form au niveau du front end c'est cette action que cela déclenchera
+    	// Quand on enverra le form au niveau du front end c'est cette action que cela déclenchera
     	socket.on('definir utilisateur', function(data,callback){
-    		if(utilisateurs.indexOf(utilisateurs.indexOf({'utilisteur':data.utilisateur})) != -1){
-    			console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeee');
-    
-    			callback(false)
+    		//Etant donné qu'on a un tableau d'objet on doit itérer dans ce tableau pour trouver l'utilisateur.
+    		//Définition d'une variable
+    		var dejaEnligne = false;
+    		//Pour tous les utilisateurs
+    		for(var i = 0; i < utilisateurs.length; i++) {
+    			//Si utilisateur[n ou i, n car bien que nul en math, c'est comme ça qu'on nomme un nombre non ?]
+    			//Je disais: Si utilisateur[n] est égal à un utilisateur en ligne
+    			if (utilisateurs[i].utilisateur == data.utilisateur) {
+    				// On set la variable à true
+    				dejaEnligne = true;
+    				// Et on arrete tout ici!
+    				break;
+    			}
+    		}
+    		// Si la variable dejaEnligne est à true on affiche un message d'erreur sur la console du serveur
+    		// Afaire: Inserer un flash pour indiquer que le pseudo est déjà pris, easy! Je crois....
+    		if(dejaEnligne){
+    			console.log('Pseudo déjà utilisé');
+    			//On renvoie false
+    			return false;
     		}else{
     			callback(true);
+    			//Le socket utilisateur courant prendra la valeur de ce qui sera envoyé par le form
     			socket.utilisateur = data.utilisateur;
     			socket.urlAvatar = data.urlAvatar;
+    			//On push pour l'ajouter au tableau (array)
     			utilisateurs.push({
     				utilisateur: data.utilisateur,
     				urlAvatar : data.urlAvatar
     			});
+    			//On appelle la fn mettreAjourUtilisateurs qui mettra à jour la liste de users
     			mettreAjourUtilisateurs();
     		}
     	});
-    
-    	function mettreAjourUtilisateurs(){
-    		io.sockets.emit('utilisateurs',utilisateurs);
-    		console.log(utilisateurs);
-    		console.log('*************');
-    	}
-    
-    	socket.on('disconnect',function(data){
-    		if(!socket.utilisateur)return;
-    		//splice pour remover une valeur ou un index, hors d'un array
-    		utilisateurs.splice(utilisateurs.indexOf(socket.utilisateur),1);
-    		mettreAjourUtilisateurs();
-    
-    
-    	})
-    });
-    
+
+----------
+
+On va travailler le fichier main.js
 
 
 
