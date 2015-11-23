@@ -137,7 +137,51 @@ Voir les commentaires inline:
 ----------
 
 On va travailler le fichier main.js
-
+    
+    $(document).ready(function(){
+    	//On aura quelques variables:
+    	// Un tableau vide pour les messages
+    	var messages = [];
+    	// On a besoin du socket
+    	var socket = io.connect('http://localhost:3000');
+    
+    	//On récupère les données du form pour tchatter
+    		// Le textarea du  tchat
+    		var texteDuChat= $('#texteDuChat');
+    		//Le form du tchat
+    		var formulaireDeChat= $('#formulaireDeChat');
+    		//La zone de tchat
+    		var fenetreDeChat= $('#fenetreDeChat');
+    	//On récupère les données du form pour l'ajout utilisateur
+    		//Le form d'ajout utilisateur
+    		var formAjoutUtilisateur= $('#formAjoutUtilisateur');
+    		// le input pour le nom d'utilisateur
+    		var pseudo= $('#pseudo');
+    		// le input pour l'avatar
+    		var urlAvatarTag= $('#urlAvatar');
+    		//La liste d'utilisateurs
+    		var utilisateurs = $('#utilisateurs');
+    	//Pour afficher des erreurs
+    	var erreurs = $('#erreurs');
+    
+    	//Si l'utilisateur veux son propre avatar
+    	// Au click sur l'input avec l'attribut name égal à "choixImgPerso"
+    	$('input[name="choixImgPerso"]').on('click', function() {
+    		//Si cet attribut a la valeur 'oui'
+    		if ($(this).val() === 'oui') {
+    			// On active le input pour insérer un lien
+    			$('#urlAvatar').removeAttr("disabled");
+    			// On enlève l'attribut required pour le input 'urlImageDefaut'
+    			$('input[name="urlImageDefaut"]').removeAttr("required");
+    		}
+    		else {
+    			//Si l'attribut a la valeur 'non'
+    			// On garde le input pour l'url de l'avatar désactivé
+    			$('#urlAvatar').prop("disabled", "disabled");
+    			// On indique que une des quatres images est requise
+    			$('input[name="urlImageDefaut"]').prop("required", "required");
+    		}
+    	});
 
 
 
