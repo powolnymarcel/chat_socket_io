@@ -94,9 +94,10 @@ Voir index.jade pour le front
 app.js:
 
 Connexion au socket:
-    //Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
-    io.sockets.on('connection',function(socket){
 
+    // Connexion au socket, tout ce qui sera fait sur le coté serveur tournera dasn cette fn
+    io.sockets.on('connection',function(socket){
+		// Quand on enverra le form au niveau du front end c'est cette action que cela déclenchera
     	socket.on('definir utilisateur', function(data,callback){
     		if(utilisateurs.indexOf(utilisateurs.indexOf({'utilisteur':data.utilisateur})) != -1){
     			console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeee');
