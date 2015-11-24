@@ -71,6 +71,10 @@ $(document).ready(function(){
 					//on montre la partie de tchat
 					$('.chat').show(1400, function() {
 					});
+					$('.chat-header').append('<div class="chat-header clearfix">' +
+						'<img alt="avatar" src="'+imagePredefinie+'">' +
+						'<div class="chat-about"><div class="chat-with">'+pseudo.val()+'</div><div class="chat-num-messages">Les messages</div>' +
+						'</div></div>')
 				}else{
 					erreurs.html('Pseudo déjà utilisé');
 					alert('dd')

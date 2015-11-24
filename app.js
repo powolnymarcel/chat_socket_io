@@ -88,9 +88,16 @@ io.sockets.on('connection',function(socket){
 	socket.on('disconnect',function(data){
 		//SI pas l'utilisateur on return
 		if(!socket.utilisateur)return;
+
+
+		for(var i = 0; i < utilisateurs.length; i++) {
+			if (utilisateurs[i].utilisateur == socket.utilisateur) {
+				utilisateurs.splice(utilisateurs.indexOf(utilisateurs[i]),1);
+			}
+		}
+
 		//splice pour remover une valeur ou un index, hors d'un array
 		// Dans la liste utilisateurs on enlève l'user avec l'index "socket.utilisateur" donc celui qui a la connexion en cours et 1 car on enlève qu'un element
-		utilisateurs.splice(utilisateurs.indexOf(socket.utilisateur),1);
 		//On raffraichi la liste d'user
 		mettreAjourUtilisateurs();
 
