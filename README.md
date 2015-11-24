@@ -4,9 +4,12 @@
 - npm v3.3.12
 - bower v1.6.5
 
+
+![](http://ondego.be/divers/tchat.png)
+
 ## Executer et tester ##
 1. npm install
-2. node app.js
+2. node app.js ou nodemon app.js
 
 ## Etapes - bootstraping de l'app ##
 
