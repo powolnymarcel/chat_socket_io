@@ -11,6 +11,7 @@ html
 			#people-list.people-list
 				.search
 					form#formAjoutUtilisateur
+						#erreurs
 						h2 Pseudo:
 						input#pseudo(type='text', placeholder='Pseudo',autofocus="autofocus",required)
 						br
@@ -52,36 +53,10 @@ html
 					img(src='https://pbs.twimg.com/profile_images/627037414666600448/ovkI2SIV.jpg', alt='avatar')
 					.chat-about
 						.chat-with Le chat
-						.chat-num-messages Dejà 1032 messages
+						.chat-num-messages Les messages
 				// end chat-header
 				.chat-history
-					ul
-						li.clearfix
-							.message-data.align-right
-								span.message-data-time 10:10 AM, Today
-								span.message-data-name Olia
-								i.fa.fa-circle.me
-							.message.other-message.float-right
-								| Hi Vincent, how are you? How is the project coming along?
-						li
-							.message-data
-								span.message-data-name
-									i.fa.fa-circle.online
-									|  Vincent
-								span.message-data-time 10:12 AM, Today
-							.message.my-message
-								| Are we meeting today? Project has been already finished and I have results to show you.
-
-						li
-							.message-data
-								span.message-data-name
-									i.fa.fa-circle.online
-									|  Vincent
-								span.message-data-time 10:31 AM, Today
-							i.fa.fa-circle.online
-							i.fa.fa-circle.online(style='color: #AED2A6')
-							i.fa.fa-circle.online(style='color:#DAE9DA')
-				// end chat-history
+					ul#fenetreDeChat
 				.chat-message.clearfix
 					form#formulaireDeChat
 						textarea#texteDuChat(name="texteDuChat",placeholder='Type your message', rows='3')

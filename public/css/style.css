@@ -225,3 +225,6 @@ body {
 .chat-header.clearfix > img {
 	width: 12%;
 }
+.imgDansChat{
+	width: 10%;
+}

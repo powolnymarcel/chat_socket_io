@@ -182,8 +182,41 @@ On va travailler le fichier main.js
     			$('input[name="urlImageDefaut"]').prop("required", "required");
     		}
     	});
-
-
+    
+    
+    	//Envoyer le formulaire utilisateur
+    	formAjoutUtilisateur.submit(function(e){
+    		//Si le input 'choixImgPerso' a comme valeur 'oui'
+    		if($('input[name="choixImgPerso"]:checked').val() === 'oui'){
+    			//On prend la variable urlAvatarTag (voir plus haut) et on donne son contenu à la variable 'imagePredefinie'
+    			var imagePredefinie =urlAvatarTag.val();
+    		}
+    		else{
+    			//Si le input a comme valeur 'non'
+    			// La variable 'imagePredefinie' prendra la valeur d'une des quatres images prédefinies
+    			var imagePredefinie = $('input[name="urlImageDefaut"]:checked').val();
+    		}
+    		// On désactive le comportement par défaut du formulaire
+    		e.preventDefault();
+    		//Envoyer au serveur 'definir utilisateur'(voir ligne 21 de app.js) avec la valeur de pseudo et urlAvatar
+    		socket.emit('definir utilisateur', {
+    				utilisateur: pseudo.val(),
+    				urlAvatar:	imagePredefinie},
+    			//Le callback
+    			function(data){
+    				//Si le serveur renvoie des data
+    				if(data) {
+    					//On cache le champs pour ajouter des utilisateurs
+    					$('#formAjoutUtilisateur').hide();
+    					//on montre la partie de tchat
+    					$('.chat').show(1400, function() {
+    					});
+    				}else{
+    					erreurs.html('Pseudo déjà utilisé')
+    				}
+    		});
+    	});
+    
 
 
 

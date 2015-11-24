@@ -4,6 +4,8 @@ var path = require('path');
 var serveur = require('http').createServer(application);
 var io = require('socket.io').listen(serveur);
 var utilisateurs = [];
+var messages = [];
+
 //var open = require('open');
 
 // Definition du moteur de vue
@@ -47,7 +49,7 @@ io.sockets.on('connection',function(socket){
 			//On push pour l'ajouter au tableau (array)
 			utilisateurs.push({
 				utilisateur: data.utilisateur,
-				urlAvatar : data.urlAvatar
+				urlAvatar : data.urlAvatar,
 			});
 			//On appelle la fn mettreAjourUtilisateurs qui mettra à jour la liste de users
 			mettreAjourUtilisateurs();
@@ -61,10 +63,35 @@ io.sockets.on('connection',function(socket){
 		console.log('*************');
 	}
 
+
+	//Quand le socket recevra 'envoyer message' il utilisera les data et enverra le message avec le user qui l'a posté
+	socket.on('envoyer message',function(data){
+		mettreAjourUtilisateurs();
+		var jourJ = new Date();
+		var jour = jourJ.getDate();
+		var mois = jourJ.getMonth()+1;
+		var annee = jourJ.getFullYear();
+		var heure = jourJ.getHours();
+		var minute = jourJ.getMinutes()+1;
+		var seconde = jourJ.getSeconds()+1;
+		var dateFormattee = jour +'/'+mois +'/'+annee+' @ '+heure +':'+minute +':'+seconde+ ' par : ';
+		io.sockets.emit('montrer message',{
+			message: data,
+			temps:dateFormattee,
+			utilisateur:socket.utilisateur,
+			urlAvatar: socket.urlAvatar
+		});
+	});
+
+
+	//Deconnexion de l'user, sur l'action disconnect on fait
 	socket.on('disconnect',function(data){
+		//SI pas l'utilisateur on return
 		if(!socket.utilisateur)return;
 		//splice pour remover une valeur ou un index, hors d'un array
+		// Dans la liste utilisateurs on enlève l'user avec l'index "socket.utilisateur" donc celui qui a la connexion en cours et 1 car on enlève qu'un element
 		utilisateurs.splice(utilisateurs.indexOf(socket.utilisateur),1);
+		//On raffraichi la liste d'user
 		mettreAjourUtilisateurs();
 
 
